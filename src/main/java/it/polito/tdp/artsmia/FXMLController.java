@@ -47,17 +47,37 @@ public class FXMLController {
     
     @FXML
     void doAnalizzaOggetti(ActionEvent event) {
-
+         this.model.buildGraph();
+         txtResult.setText("Grafo costruito!");
     }
 
     @FXML
     void doCalcolaComponenteConnessa(ActionEvent event) {
-
+    	String input=txtObjectId.getText();
+    	Integer inputNum=0;
+    	if(input=="") {
+    		txtResult.setText("ID non valido!");
+    		return;
+    	}
+    		
+    	try {
+    		inputNum=Integer.parseInt(input);
+    		
+    	} catch (NumberFormatException nfe) {
+    		nfe.printStackTrace();
+    	}
+    	if(model.isIdInGraph(inputNum)) {
+    		 Integer sizeConnessa=this.model.calcolaConnessa(inputNum);
+    		 txtResult.setText("Dimensione componente connessa: "+ sizeConnessa);
+    	} else {
+    		txtResult.setText("Id non valido!");
+    	}
+    	
     }
 
     @FXML
     void doCercaOggetti(ActionEvent event) {
-
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
